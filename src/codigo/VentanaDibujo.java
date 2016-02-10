@@ -61,7 +61,18 @@ public class VentanaDibujo extends javax.swing.JFrame {
         
     }
     
-    
+    private boolean chequeaPunto(int x, int y){
+       boolean contiene = false;
+        for (int i = 0; i < listaFormas.size(); i++) {
+            if( ((Shape)listaFormas.get(i)).contains(x,y)){
+                //si en algun momento el contains devuelve true es porque el
+                //punto que ha pasado esta en una folrma de las que tengo
+                //guardadas en un arraylsit
+                contiene = true;
+            }
+        }
+        return contiene;
+    }
     
     @Override
     public void paint(Graphics g){
@@ -88,7 +99,7 @@ public class VentanaDibujo extends javax.swing.JFrame {
                  ((Cuadrado) listaFormas.get(i)).pintaYColorea(g2);
             }
             
-            System.out.println(i);
+            //System.out.println(i);
         }
         
         //apunto al jPanel
@@ -295,6 +306,11 @@ public class VentanaDibujo extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jPanel1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MousePressed
+        if (chequeaPunto(evt.getX(), evt.getY())){
+            //hay un elemento en esas coordenadas en las que he hecho clic
+            System.out.println("HAY UN OBJETO!!!");
+        }
+        else{
         int radio = jSlider1.getValue();
         switch(forma){
             case 0: listaFormas.add( new Circulo(evt.getX(), evt.getY(), radio, colorElegido, true)); break;
@@ -302,7 +318,7 @@ public class VentanaDibujo extends javax.swing.JFrame {
             case 2: listaFormas.add( new Rombo(evt.getX(), evt.getY(), radio, colorElegido, true)); break;
             case 3: listaFormas.add( new Cuadrado(evt.getX(), evt.getY(), radio, colorElegido, true)); break;
         }
-        
+        }
         
         
         
